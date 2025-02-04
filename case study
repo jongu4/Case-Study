@@ -1,0 +1,20 @@
+CREATE TABLE `banded-encoder-443815-j8.cyclistic_hisotical_trip.cleaned_table` AS --creates a new table called cleaned_table
+SELECT --outer query
+  DISTINCT * --remvoes duplicate rows
+FROM --to select data from a nestged query
+  (--inner subquery
+    SELECT --retrieve columns from original table
+      *
+    FROM 
+      `banded-encoder-443815-j8.cyclistic_hisotical_trip.01_cyclistic_hisotical_trip`
+    WHERE --removes all rows with NULL values in any of these key columns
+      ride_id IS NOT NULL
+      AND rideable_type IS NOT NULL 
+      AND started_at IS NOT NULL 
+      AND ended_at IS NOT NULL 
+      AND start_station_name IS NOT NULL AND start_station_id IS NOT NULL 
+      AND end_station_name IS NOT NULL AND end_station_id IS NOT NULL
+      AND start_lat IS NOT NULL AND start_lng IS NOT NULL
+      AND end_lat IS NOT NULL AND end_lng IS NOT NULL 
+      AND member_casual IS NOT NULL
+  ) AS filtered_data;
